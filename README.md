@@ -13,6 +13,8 @@ I was motivated to practice what I have learned through the week about JQuery an
 The calendar shows the office hours of 9 am to 5 pm. The user can click any of the rows, enter an activity, and save the changes clicking the save button on the right of the row.
 The changes are saved to the localStorage, therefore, even if the user refreshes the page, the data is not going to disappear.
 
+The calendar rows will show green if the event is in the future, red if the event is in the present, and gray if the event is in the past. 
+
 Link to the deployed app https://ginitadavis.github.io/Word-Day-Scheduler/
 
 ## License
