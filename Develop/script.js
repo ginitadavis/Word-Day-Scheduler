@@ -1,7 +1,6 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -20,25 +19,22 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
-var calendarHour = $('.row time-block');
-var now = dayjs();
-var date = new Date();
-var currentDay = $('#currentDay');
 
-currentDay.text(now);
-var diff_hours;
+//Get current date, format it, and show it in the page
+var currentDate = dayjs();
+var formattedDate = currentDate.format("dddd, MMMM DD, YYYY");
+$('#currentDay').text(formattedDate);
 
 //Gets the element textarea
-var hour9 = $("textarea[name='text9']");//.text();
-var hour10 = $("textarea[name='text10']");//.text();
-var hour11 = $("textarea[name='text11']");//.text();
-var hour12 = $("textarea[name='text12']");//.text();
-var hour1 = $("textarea[name='text1']");//.text();
-var hour2 = $("textarea[name='text2']");//.text();
-var hour3 = $("textarea[name='text3']");//.text();
-var hour4 = $("textarea[name='text4']");//.text();
-var hour5 = $("textarea[name='text5']");//.text();
+var hour9 = $("textarea[name='text-9']");//.text();
+var hour10 = $("textarea[name='text-10']");//.text();
+var hour11 = $("textarea[name='text-11']");//.text();
+var hour12 = $("textarea[name='text-12']");//.text();
+var hour1 = $("textarea[name='text-13']");//.text();
+var hour2 = $("textarea[name='text-14']");//.text();
+var hour3 = $("textarea[name='text-15']");//.text();
+var hour4 = $("textarea[name='text-16']");//.text();
+var hour5 = $("textarea[name='text-17']");//.text();
 
 console.log(hour10.text());
 
@@ -64,6 +60,7 @@ hour3.val(text3);
 hour4.val(text4);
 hour5.val(text5);
 
+
 //Makes the textarea background white when the user clicks on it
 $("textarea").click(function(){
   $(this).addClass("editable");
@@ -74,92 +71,115 @@ $("textarea").on("blur", function(){
   $(this).removeClass("editable");
 })
 
+
 //After saving the data with the buttons, the values of the textareas are saved in
 //the localStorage
+
+/*$(document).ready(function(){
+  console.log("hello 2")
+  $("#"+this.id).click(function(){
+    console.log("hello 3")
+    console.log(this.id)
+    window.alert("Button " + this.id + " was clicked");
+  });
+})*/
+
+//checks that the document is loaded, then when there's a click in one of the buttons
+//I send the information in the textarea to the localStorage. This happens for each button
+
 $(document).ready(function (){
-  $("#button9").click(function(){
+  $("#button-9").click(function(){
     localStorage.setItem("hour9", hour9.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button10").click(function(){
+  $("#button-10").click(function(){
     localStorage.setItem("hour10", hour10.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button11").click(function(){
+  $("#button-11").click(function(){
     localStorage.setItem("hour11", hour11.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button12").click(function(){
+  $("#button-12").click(function(){
     localStorage.setItem("hour12", hour12.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button1").click(function(){
+  $("#button-1").click(function(){
     localStorage.setItem("hour1", hour1.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button2").click(function(){
+  $("#button-2").click(function(){
     localStorage.setItem("hour2", hour2.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button3").click(function(){
+  $("#button-3").click(function(){
     localStorage.setItem("hour3", hour3.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button4").click(function(){
+  $("#button-4").click(function(){
     localStorage.setItem("hour4", hour4.val());
   });
 });
 
 $(document).ready(function (){
-  $("#button5").click(function(){
+  $("#button-5").click(function(){
     localStorage.setItem("hour5", hour5.val());
   });
 });
 
-/*$("#button9").on("click", function(){
+//Current hour has military time 9 am to 17 pm
+var date = new Date();
+var currentHour = date.getHours();
+var hourPM = false; //if it's morning
 
-})*/
-
-/*
-for (var i = 0; i < 13; i++){
-  var currentHour = date.getHours();
-  var hourPM = false;
-
-  if (currentHour > 12){
-    currentHour = 24 - currentHour; //Hour will be in the pm or am
-    hourPM = !hourPM; //The hour is in the PM
-  } else if (currentHour === 0){
-
-  }
-
-  if (i>0 && i<6){ //hours 1pm to 5 pm
-    if (){
-
-    }
-
-  } else if (i > 8 && i<12){//hours 9 am to 12pm
-
-  } else if (i === 12){ //this is 12pm
-
-  }
-  console.log(i);
+// if currentHour is above 12, then it is PM
+if (currentHour > 12){
+  //currentHour = currentHour - 12; //Hour will be in the pm or am
+  hourPM = true; //The hour is in the PM
 }
-*/
-//differenceHours.diff_hours('time1','time2','result')
-/*You can use like this, var dt = new Date(); var h = dt. getHours(), m = dt. getMinutes(); 
-var _time = (h > 12) ? (h-12 + ':' + m +' PM') : (h + ':' + m +' AM');
-*/
+
+//loop that checks each textarea from 9 am to 5 pm
+$("textarea").each(function(event){
+  
+  //Convert currentHour to String
+  currentHour = currentHour.toString();//16
+
+  //this.name gets the ID from the textarea 9 - 17
+  var rowNo =(this.name).split("-");
+  console.log(rowNo[1]);
+  console.log(currentHour);
+
+  if (currentHour < rowNo[1]){
+
+    $("textarea[name='text-"+rowNo[1]+"']").addClass("future");
+    //console.log("future "+"textarea[name='text-"+rowNo[1]+"']");
+    console.log("future "+rowNo[1]);
+
+  } else if (currentHour > rowNo[1]){
+
+    $("textarea[name='text-"+rowNo[1]+"']").addClass("past");
+    console.log("Past "+rowNo[1]);
+
+  } else if (currentHour == rowNo[1]){
+
+    $("textarea[name='text-"+rowNo[1]+"']").addClass("present");
+    console.log("Present "+rowNo[1]);
+    
+  }
+
+});
+
