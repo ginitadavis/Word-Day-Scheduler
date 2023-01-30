@@ -148,7 +148,6 @@ var hourPM = false; //if it's morning
 
 // if currentHour is above 12, then it is PM
 if (currentHour > 12){
-  //currentHour = currentHour - 12; //Hour will be in the pm or am
   hourPM = true; //The hour is in the PM
 }
 
@@ -156,14 +155,17 @@ if (currentHour > 12){
 $("textarea").each(function(event){
   
   //Convert currentHour to String
-  currentHour = currentHour.toString();//16
+  currentHour = currentHour;//16
 
   //this.name gets the ID from the textarea 9 - 17
   var rowNo =(this.name).split("-");
+  var numberRowNo = parseInt(rowNo);
   console.log(rowNo[1]);
   console.log(currentHour);
 
   if (currentHour < rowNo[1]){
+    console.log("Inside future Row No. "+rowNo[1].trim());
+    console.log("Inside future current hr "+currentHour);
 
     $("textarea[name='text-"+rowNo[1]+"']").addClass("future");
     //console.log("future "+"textarea[name='text-"+rowNo[1]+"']");
@@ -178,7 +180,7 @@ $("textarea").each(function(event){
 
     $("textarea[name='text-"+rowNo[1]+"']").addClass("present");
     console.log("Present "+rowNo[1]);
-    
+
   }
 
 });
