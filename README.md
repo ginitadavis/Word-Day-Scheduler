@@ -8,7 +8,7 @@ I was motivated to practice what I have learned through the week about JQuery an
 
 ## Usage
 
-![alt text](Assets/Work-scheduler-img.png)
+![alt text](assets/images/Work-scheduler-img.png)
 
 The calendar shows the office hours of 9 am to 5 pm. The user can click any of the rows, enter an activity, and save the changes clicking the save button on the right of the row.
 The changes are saved to the localStorage, therefore, even if the user refreshes the page, the data is not going to disappear.
